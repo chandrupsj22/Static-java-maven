@@ -43,3 +43,10 @@ jobs:
           #git commit -m "Add settings.xml"
           #git push
           cat $GITHUB_WORKSPACE/.m2/settings.xml
+    - name: Build and publish to GitHub Package Registry
+      run: |
+          mvn clean install
+          mvn deploy
+      env:
+          USERNAME: ${{ secrets.USERNAME_GITHUB }}
+          PASSWORD: ${{ secrets.PAT }}
