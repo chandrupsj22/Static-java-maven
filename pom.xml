@@ -36,11 +36,13 @@
 		</dependency>
 
 	</dependencies>
+        <repositories>
             <repository>
                <id>github</id>
-               <name>GitHub Package Registrys</name>
+               <name>GitHub Package Registry</name>
                <url>https://maven.pkg.github.com/chandrupsj22/Static-java-maven</url>
             </repository>
+        </repositories>    
 	<distributionManagement>
             <repository>
                <id>github</id>
