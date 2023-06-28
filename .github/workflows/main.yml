@@ -1,0 +1,45 @@
+name: Java CI with maven
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: write
+ 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+    - name: Set up Git
+      run: |
+          git config --global user.name "chandrupsj22"
+          git config --global user.email "133023965+chandru-kloudping@users.noreply.github.com"
+    - name: Create settings.xml
+      run: |
+          sed -i "s/{{USERNAME_GITHUB}}/${{ secrets.USERNAME_GITHUB }}/g" ${{ github.workspace }}/.m2/settings.xml
+          sed -i "s/{{PAT}}/${{ secrets.PAT }}/g" ${{ github.workspace }}/.m2/settings.xml
+          echo " Content in xml"
+          cat ${{ github.workspace }}/.m2/settings.xml
+      env:
+           GITHUB_USERNAME: ${{ secrets.USERNAME_GITHUB }}
+           GITHUB_PAT: ${{ secrets.PAT }}
+
+    - name: Commit and push settings.xml
+      run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          #git add $GITHUB_WORKSPACE/.m2/settings.xml
+          #git commit -m "Add settings.xml"
+          #git push
+          cat $GITHUB_WORKSPACE/.m2/settings.xml
