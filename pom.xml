@@ -36,6 +36,14 @@
 		</dependency>
 
 	</dependencies>
+	<distributionManagement>
+            <repository>
+               <id>github</id>
+               <name>GitHub Package Registry</name>
+               <url>https://maven.pkg.github.com/chandrupsj22/Static-java-maven</url>
+            </repository>
+        </distributionManagement>
+
 
 	<!-- Committing and updating changes through Maven, by using below mvn command. 
 		For Commiting mvn -Dmessage="Updated using maven" scm:checkin For updating 
