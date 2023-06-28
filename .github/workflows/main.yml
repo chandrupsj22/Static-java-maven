@@ -48,5 +48,5 @@ jobs:
           mvn clean install
           mvn deploy
       env:
-          USERNAME: ${{ secrets.USERNAME_GITHUB }}
-          PASSWORD: ${{ secrets.PAT }}
+           GITHUB_USERNAME: ${{ secrets.USERNAME_GITHUB }}
+           GITHUB_PAT: ${{ secrets.PAT }}
