@@ -45,7 +45,7 @@ jobs:
           cat $GITHUB_WORKSPACE/.m2/settings.xml
     - name: Build and publish to GitHub Package Registry
       run: |
-          mvn clean install
+          mvn clean package
           mvn deploy
       env:
            GITHUB_USERNAME: ${{ secrets.USERNAME_GITHUB }}
