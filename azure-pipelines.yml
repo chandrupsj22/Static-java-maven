@@ -1,0 +1,124 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  azureSubscription: 'Your-Azure-Subscription'
+  appName: 'Your-App-Name'
+  resourceGroup: 'Your-Resource-Group'
+  location: 'Your-Location'
+  staticWebAppName: 'Your-Static-Web-App-Name'
+
+steps:
+- task: MavenAuthenticate@0
+  displayName: 'Maven Authenticate'
+
+- task: Maven@3
+  displayName: 'Maven clean'
+  inputs:
+    mavenPomFile: './pom.xml'
+    goals: 'clean'
+
+- task: Maven@3
+  displayName: 'Maven compile'
+  inputs:
+    mavenPomFile: './pom.xml'
+    goals: 'clean compile'
+
+- task: Maven@3
+  displayName: 'Maven install'
+  inputs:
+    mavenPomFile: './pom.xml'
+    goals: 'clean install'
+    
+- task: Maven@3
+  displayName: 'Maven Build'
+  inputs:
+    mavenPomFile: './pom.xml'
+    goals: 'clean package'
+        
+
+#- task: CopyFiles@2
+#  displayName: 'Copy JAR to Artifact'
+#  inputs:
+#    Contents: '$(Build.ArtifactStagingDirectory)/**/*.jar'
+#    TargetFolder: '$(System.DefaultWorkingDirectory)/drop'    
+
+
+
+#- task: PublishPipelineArtifact@1
+#  displayName: 'Publish Artifact'
+#  inputs:
+#    targetPath: $(build.artifactStagingDirectory)
+#    artifact: 'drop'
+#    publishLocation: 'pipeline'
+
+#- task: DownloadPipelineArtifact@2
+#  inputs:
+#    buildType: 'current'
+#    artifactName: 'drop'
+#    targetPath: '$(build.artifactStagingDirectory)/drop'    
+
+- task: CopyFiles@2
+  displayName: 'Copy Files'
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)/target' 
+    Contents: '**/*.jar'
+    TargetFolder: '$(build.artifactStagingDirectory)'
+
+
+- task: PublishPipelineArtifact@1
+  displayName: 'Publish JAR to Azure Artifacts'
+  inputs:
+    targetPath: '$(build.artifactStagingDirectory)'
+    artifactName: 'drop'
+    publishLocation: 'pipeline'
+    
+#- task: DownloadPipelineArtifact@2
+#  inputs:
+#    buildType: 'current'
+#    artifactName: 'drop'
+#    targetPath: '$(Pipeline.Workspace)/drop'    
+    
+
+#- task: AzureRmWebAppDeployment@4
+#  inputs:
+#    ConnectionType: 'AzureRM'
+#    azureSubscription: 'Pay-As-You-Go(69cdfedb-db11-4a68-bafa-dcd8b61cf8b7)'
+#    appType: 'webAppLinux'
+#    WebAppName: 'dntwebappdevops'
+#    deployToSlotOrASE: true
+#    ResourceGroupName: 'My-test-Rg'
+#    SlotName: 'production'
+#    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.jar'
+#    StartupCommand: 'java -jar maven-standalone-application-0.0.1-SNAPSHOT.jar'
+#- script: |
+#    cd $(System.DefaultWorkingDirectory)
+#    java -jar maven-standalone-application-0.0.1-SNAPSHOT.jar
+#  displayName: 'Run Java application' 
+#-------------------------------------------------------
+#- task: AzureRmWebAppDeployment@4
+#  displayName: 'Azure Static Web App Deployment'
+#  inputs:
+#    ConnectionType: 'AzureRM'
+#    azureSubscription: 'Pay-As-You-Go(69cdfedb-db11-4a68-bafa-dcd8b61cf8b7)'
+#    appType: 'webApp'
+#    WebAppName: 'dntwebappdevops'
+#    packageForLinux: '$(Build.ArtifactStagingDirectory)/**/*.jar'
+
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'Pay-As-You-Go(69cdfedb-db11-4a68-bafa-dcd8b61cf8b7)'
+    appType: 'webAppLinux'
+    appName: 'dntwebappdevops'
+    package: '$(Build.ArtifactStagingDirectory)/**/*.jar'
+
+- script: |
+    #!/bin/bash
+    cd $(System.DefaultWorkingDirectory)/target
+    java -jar maven-standalone-application-0.0.1-SNAPSHOT.jar
+  displayName: 'Run Java application'
