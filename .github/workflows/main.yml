@@ -45,6 +45,8 @@ jobs:
           cat $GITHUB_WORKSPACE/.m2/settings.xml
     - name: Build and publish to GitHub Package Registry
       run: |
+          git config --global user.name "chandrupsj22"
+          git config --global user.email "133023965+chandru-kloudping@users.noreply.github.com"
           mvn clean package
           mvn deploy
       env:
