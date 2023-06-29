@@ -35,13 +35,13 @@
 			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
-                <dependency>
+<!--                 <dependency>
                    <groupId>com.example</groupId>
-                   <artifactId>maven-standalone-application</artifactId>
+                   <artifactId>test</artifactId>
                    <version>1.0.0-SNAPSHOT</version>
-	        </dependency>
+	        </dependency> -->
 	</dependencies>
-        
+	        
 	<distributionManagement>
             <repository>
                <id>github</id>
@@ -68,32 +68,16 @@
 
 	-->
 	<build>
-	  <plugins>
-	    <plugin>
-	      <!-- Build an executable JAR -->
-	      <groupId>org.apache.maven.plugins</groupId>
-	      <artifactId>maven-jar-plugin</artifactId>
-	      <version>3.1.0</version>
-	      <configuration>
-	        <archive>
-	          <manifest>
-	            <addClasspath>true</addClasspath>
-	            <classpathPrefix>lib/</classpathPrefix>
-	            <mainClass>com.mt.sample.HelloWorld</mainClass>
-	          </manifest>
-	        </archive>
-	      </configuration>
-	    </plugin>
-	  </plugins>
-       <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.8.1</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>		
-	</build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>3.0.0-M1</version>
+                <configuration>
+                    <altDeploymentRepository>github::default::https://maven.pkg.github.com/chandrupsj22/Static-java-maven</altDeploymentRepository>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 	
 </project>
