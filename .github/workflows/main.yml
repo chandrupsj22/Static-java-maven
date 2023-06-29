@@ -23,39 +23,14 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         #server-id: github
-        server-username: GITHUB_USER_REF  # env variable name for username
-        server-password: GITHUB_TOKEN_REF
-      env:
-          GITHUB_USER_REF: ${{ secrets.USERNAME_GITHUB }}
-          GITHUB_TOKEN_REF: ${{ secrets.PAT }}
+        server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+        settings-path: ${{ github.workspace }} # location for the settings.xml file
         
-    - name: Set up Git
-      run: |
-          git config --global user.name "chandrupsj22"
-          git config --global user.email "133023965+chandru-kloudping@users.noreply.github.com"
-#     - name: Create settings.xml
-#       run: |
-#           sed -i "s/{{USERNAME_GITHUB}}/${{ secrets.USERNAME_GITHUB }}/g" ${{ github.workspace }}/.github/workflows/.m2/settings.xml
-#           sed -i "s/{{PAT}}/${{ secrets.PAT }}/g" ${{ github.workspace }}/.github/workflows/.m2/settings.xml
-#           echo " Content in xml"
-#           cat ${{ github.workspace }}/.github/workflows/.m2/settings.xml
-#       env:
-#            GITHUB_USERNAME: ${{ secrets.USERNAME_GITHUB }}
-#            GITHUB_PAT: ${{ secrets.PAT }}
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
 
-    - name: Commit and push settings.xml
-      run: |
-          git config --global user.name "chandrupsj22"
-          git config --global user.email "133023965+chandru-kloudping@users.noreply.github.com"
-          #git add $GITHUB_WORKSPACE/.m2/settings.xml
-          #git commit -m "Add settings.xml"
-          #git push
-          cat $GITHUB_WORKSPACE/.github/workflows/.m2/settings.xml
-    - name: Build and publish to GitHub Package Registry
-      run: |
-          #git config --global user.name "chandrupsj22"
-          #git config --global user.email "133023965+chandru-kloudping@users.noreply.github.com"
-          mvn deploy
+    - name: Publish to GitHub Packages Apache Maven
+      run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
       env:
-          GITHUB_USER_REF: ${{ secrets.USERNAME_GITHUB }}
-          GITHUB_TOKEN_REF: ${{ secrets.PAT }}
+        GITHUB_TOKEN: ${{ secrets.PAT }}
+
