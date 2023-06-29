@@ -55,7 +55,7 @@ jobs:
       run: |
           #git config --global user.name "chandrupsj22"
           #git config --global user.email "133023965+chandru-kloudping@users.noreply.github.com"
-          mvn clean package
+          mvn deploy
       env:
           GITHUB_USER_REF: ${{ secrets.USERNAME_GITHUB }}
           GITHUB_TOKEN_REF: ${{ secrets.PAT }}
