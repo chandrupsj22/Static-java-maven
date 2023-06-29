@@ -21,17 +21,17 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
-        server-id: github
+        #server-id: github
         server-username: GITHUB_USER_REF  # env variable name for username
         server-password: GITHUB_TOKEN_REF
       env:
           GITHUB_USER_REF: ${{ secrets.USERNAME_GITHUB }}
           GITHUB_TOKEN_REF: ${{ secrets.PAT }}
         
-#     - name: Set up Git
-#       run: |
-#           git config --global user.name "chandrupsj22"
-#           git config --global user.email "133023965+chandru-kloudping@users.noreply.github.com"
+    - name: Set up Git
+      run: |
+          git config --global user.name "chandrupsj22"
+          git config --global user.email "133023965+chandru-kloudping@users.noreply.github.com"
 #     - name: Create settings.xml
 #       run: |
 #           sed -i "s/{{USERNAME_GITHUB}}/${{ secrets.USERNAME_GITHUB }}/g" ${{ github.workspace }}/.github/workflows/.m2/settings.xml
