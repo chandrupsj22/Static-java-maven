@@ -2,85 +2,80 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.mt</groupId>
-	<artifactId>maven-standalone-application</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<groupId>org.example</groupId>
+	<artifactId>github-example-package</artifactId>
+	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>maven-standalone-application</name>
-	<url>http://mithuntechnologies.com</url>
-
-	<organization>
-		<name>Mithun Technologies</name>
-		<url>http://mithuntechnologies.com/</url>
-	</organization>
 	
-	<description>Maven Standalone Application</description>
-
-	<properties>
-		<sonar.host.url>http://35.154.242.68:9000/</sonar.host.url>
-		<sonar.login>admin</sonar.login>
-		<sonar.password>admin</sonar.password>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>11</maven.compiler.source>
-                <maven.compiler.target>11</maven.compiler.target>
-		<maven.compiler.release>11</maven.compiler.release>
-	</properties>
-
-	<dependencies>
-
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
-		</dependency>
-<!--                 <dependency>
-                   <groupId>com.example</groupId>
-                   <artifactId>test</artifactId>
-                   <version>1.0.0-SNAPSHOT</version>
-	        </dependency> -->
-	</dependencies>
-	        
+		        
 	<distributionManagement>
             <repository>
                <id>github</id>
                <name>GitHub Package Registry</name>
                <url>https://maven.pkg.github.com/chandrupsj22/Static-java-maven</url>
-	       <releases>
-               <enabled>true</enabled>
-               </releases>
-               <snapshots>
-               <enabled>true</enabled>
-               </snapshots>
-            </repository>
+	    </repository>
         </distributionManagement>
 
 	<!-- Committing and updating changes through Maven, by using below mvn command. 
 		For Commiting mvn -Dmessage="Updated using maven" scm:checkin For updating 
 		mvn scm:update -->
-	<!--
-	<scm>
-		<connection>scm:git:https://github.com/MithunTechnologiesDevOps/maven-standalone-application</connection>
-		<developerConnection>scm:git:https://github.com/MithunTechnologiesDevOps/maven-standalone-application</developerConnection>
-		<tag>HEAD</tag>
-		<url>https://github.com/MithunTechnologiesDevOps/maven-standalone-application</url>
-	</scm>
-
-	<issueManagement>
-		<system>GitHub</system>
-		<url>https://github.com/MithunTechnologiesDevOps/maven-standalone-application/issues</url>
-	</issueManagement>
-
-	-->
+	
 	<build>
+        <pluginManagement>
+            <plugins>
+               <plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-plugin-plugin</artifactId>
+                  <version>3.6.0</version>
+                  <configuration>
+                    <skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
+                  </configuration>
+               </plugin> 
+               <plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-site-plugin</artifactId>
+                  <version>3.9.1</version>
+               </plugin>
+           </plugins>
+        </pluginManagement>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                       <id>attach-sources</id>
+                       <goals>
+                            <goal>jar</goal>
+                       </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-javadoc-plugin</artifactId>
+                  <configuration>
+                    <doclint>none</doclint>
+                  </configuration>
+            </plugin> 
+          
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
                 <version>3.0.0-M1</version>
                 <configuration>
                     <altDeploymentRepository>github::default::https://maven.pkg.github.com/chandrupsj22/Static-java-maven</altDeploymentRepository>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
                 </configuration>
             </plugin>
         </plugins>
