@@ -35,9 +35,9 @@
 			<scope>test</scope>
 		</dependency>
                 <dependency>
-                   <groupId>com.example</groupId>
-                   <artifactId>test</artifactId>
-                   <version>1.0.0-SNAPSHOT</version>
+                   <groupId>com.mt</groupId>
+                   <artifactId>maven-standalone-application</artifactId>
+                   <version>0.0.1-SNAPSHOT</version>
                 </dependency>
 	</dependencies>
         
