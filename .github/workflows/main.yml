@@ -20,7 +20,13 @@ jobs:
       uses: actions/setup-java@v3
       with:
         java-version: '11'
-        distribution: 'temurin'
+        server-id: github
+        server-username: GITHUB_USER_REF  # env variable name for username
+        server-password: GITHUB_TOKEN_REF
+      env:
+          GITHUB_USER_REF: ${{ secrets.USERNAME_GITHUB }}
+          GITHUB_TOKEN_REF: ${{ secrets.PAT }}
+        
     - name: Set up Git
       run: |
           git config --global user.name "chandrupsj22"
@@ -47,8 +53,7 @@ jobs:
       run: |
           git config --global user.name "chandrupsj22"
           git config --global user.email "133023965+chandru-kloudping@users.noreply.github.com"
-          mvn clean package
-          mvn deploy
+          mvn clean package -DattachMuleSources -Pgithub deploy
       env:
-           GITHUB_USERNAME: ${{ secrets.USERNAME_GITHUB }}
-           GITHUB_PAT: ${{ secrets.PAT }}
+          GITHUB_USER_REF: ${{ secrets.USERNAME_GITHUB }}
+          GITHUB_TOKEN_REF: ${{ secrets.PAT }}
