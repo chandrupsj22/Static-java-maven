@@ -21,12 +21,19 @@
                    <version>1.0.0-SNAPSHOT</version>
 	        </dependency> -->
 	</dependencies>
-		        
+	<repositories>	
+        <repository>
+               <id>github</id>
+               <name>GitHub Package Registry</name>
+               <url>github::https://maven.pkg.github.com/chandrupsj22/Static-java-maven</url>
+	</repository>
+        </repositories>
+        
 	<distributionManagement>
             <repository>
                <id>github</id>
                <name>GitHub Package Registry</name>
-               <url>https://maven.pkg.github.com/chandrupsj22/Static-java-maven</url>
+               <url>github::https://maven.pkg.github.com/chandrupsj22/Static-java-maven</url>
 	    </repository>
         </distributionManagement>
 
@@ -69,20 +76,20 @@
             <plugin>
                   <groupId>org.apache.maven.plugins</groupId>
                   <artifactId>maven-javadoc-plugin</artifactId>
-		  <version>3.3.1</version>
+                  <version>3.3.1</version>
                   <configuration>
                     <doclint>none</doclint>
                   </configuration>
             </plugin> 
           
-         <!--    <plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
-                <version>3.0.0-M1</version>
+                <version>3.0.0</version>
                 <configuration>
-                    <altDeploymentRepository>github::default::https://maven.pkg.github.com/chandrupsj22/Static-java-maven</altDeploymentRepository>
+                    <altDeploymentRepository>github::https://maven.pkg.github.com/chandrupsj22/Static-java-maven</altDeploymentRepository>
                 </configuration>
-            </plugin> -->
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
