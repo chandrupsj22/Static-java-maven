@@ -20,6 +20,7 @@ jobs:
       uses: actions/setup-java@v3
       with:
         java-version: '11'
+        distribution: 'temurin'
         server-id: github
         server-username: GITHUB_USER_REF  # env variable name for username
         server-password: GITHUB_TOKEN_REF
