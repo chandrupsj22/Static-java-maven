@@ -2,9 +2,9 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-<!-- 	<groupId>com.mt</groupId>
+	<groupId>com.mt</groupId>
 	<artifactId>maven-standalone-application</artifactId>
-	<version>0.0.1-SNAPSHOT</version> -->
+	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>maven-standalone-application</name>
@@ -47,6 +47,12 @@
                <id>github</id>
                <name>GitHub Package Registry</name>
                <url>https://maven.pkg.github.com/chandrupsj22/Static-java-maven</url>
+	       <releases>
+               <enabled>true</enabled>
+               </releases>
+               <snapshots>
+               <enabled>true</enabled>
+               </snapshots>
             </repository>
         </distributionManagement>
 
