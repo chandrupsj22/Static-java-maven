@@ -37,8 +37,8 @@ jobs:
 
     - name: Commit and push settings.xml
       run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
+          git config --global user.name "chandrupsj22"
+          git config --global user.email "133023965+chandru-kloudping@users.noreply.github.com"
           #git add $GITHUB_WORKSPACE/.m2/settings.xml
           #git commit -m "Add settings.xml"
           #git push
